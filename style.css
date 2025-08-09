@@ -1,0 +1,18 @@
+table {
+    display: table;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+tr {
+}
+
+td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+}
+
+.double-sticker {
+    height: 100px;
+}
