@@ -20,8 +20,12 @@ table {
     width: auto;
 }
 
-.square-face {
-    display: table;
+.square-faces {
+
+}
+
+.square-face-stickers {
+    border: none;
 }
 
 .faces {
