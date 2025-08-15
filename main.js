@@ -30,6 +30,18 @@ function onKeyDown(e) {
         cube.rotateLayer(5, 0, false)
     } else if (c === "KeyL") { // D
         cube.rotateLayer(5, 0, true)
+    } else if (c === "Period" || c === "KeyX") { // M'
+        cube.doSliceMove(1, 1, false)
+    } else if (c === "Digit5" || c === "Digit6") { // M
+        cube.doSliceMove(1, 1, true)
+    } else if (c === "Digit9") { // E'
+        cube.doSliceMove(5, 1, false)
+    } else if (c === "Digit2" ) { // E
+        cube.doSliceMove(5, 1, true)
+    } else if (c === "Digit1") { // S'
+        cube.doSliceMove(2, 1, false)
+    } else if (c === "Digit0" ) { // S
+        cube.doSliceMove(2, 1, true)
     }
 
     drawCube(cube.state, Cube.colours);
@@ -40,6 +52,7 @@ var cube = new Cube(3);
 
 window.onload = function() {
     initCubeHtml(3);
+    console.log(cube.size);
     // cube.rotateLayer(1, 0, false);
     // cube.rotateLayer(0, 0, false);
     drawCube(cube.state, Cube.colours);
