@@ -35,6 +35,7 @@ export class Cube {
         for (let i = 0; i <= layers; i++) {
             this.cycleSideStickers(face, clockwise, i);
         }
+
         
     }
 
@@ -48,24 +49,28 @@ export class Cube {
 
         if (face == 0) {
             if (clockwise) { // 1 -> 4 -> 3 -> 2
-                var temp = stateCopy[1][layer].slice();
-                stateCopy[1][layer] = stateCopy[2][layer].slice();
-                stateCopy[2][layer] = stateCopy[3][layer].slice();
-                stateCopy[3][layer] = stateCopy[4][layer].slice();
-                stateCopy[4][layer] = temp;
+                for (let i = 0; i < this.size; i++) {
+                    var temp = stateCopy[1][layer][i];
+                    stateCopy[1][layer][i] = stateCopy[2][layer][i];
+                    stateCopy[2][layer][i] = stateCopy[3][layer][i];
+                    stateCopy[3][layer][i] = stateCopy[4][layer][i];
+                    stateCopy[4][layer][i] = temp;
+                }
             } else { // 4 -> 3 -> 2 -> 1
-                var temp = stateCopy[4][layer].slice();
-                stateCopy[4][layer] = stateCopy[3][layer].slice();
-                stateCopy[3][layer] = stateCopy[2][layer].slice();
-                stateCopy[2][layer] = stateCopy[1][layer].slice();
-                stateCopy[1][layer] = temp;
+                for (let i = 0; i < this.size; i++) {   
+                    var temp = stateCopy[1][layer][i];
+                    stateCopy[1][layer][i] = stateCopy[4][layer][i];
+                    stateCopy[4][layer][i] = stateCopy[3][layer][i];
+                    stateCopy[3][layer][i] = stateCopy[2][layer][i];
+                    stateCopy[2][layer][i] = temp;
+                }
             }
         } else if (face == 1) {
             if (clockwise) { // 0 2 5 4
                 for (let i = 0; i < this.size; i++) {
                     var temp = stateCopy[0][i][layer];
-                    stateCopy[0][i][layer] = stateCopy[4][N-i][N];
-                    stateCopy[4][N-i][N] = stateCopy[5][i][layer];
+                    stateCopy[0][i][layer] = stateCopy[4][N-i][N-layer];
+                    stateCopy[4][N-i][N-layer] = stateCopy[5][i][layer];
                     stateCopy[5][i][layer] = stateCopy[2][i][layer];
                     stateCopy[2][i][layer] = temp;
                 }
@@ -74,8 +79,8 @@ export class Cube {
                     var temp = stateCopy[0][i][layer];
                     stateCopy[0][i][layer] = stateCopy[2][i][layer];
                     stateCopy[2][i][layer] = stateCopy[5][i][layer];
-                    stateCopy[5][i][layer] = stateCopy[4][N-i][N];
-                    stateCopy[4][N-i][N] = temp;
+                    stateCopy[5][i][layer] = stateCopy[4][N-i][N-layer];
+                    stateCopy[4][N-i][N-layer] = temp;
                 }
             }
         } else if (face == 2) {
@@ -150,11 +155,12 @@ export class Cube {
         this.state = stateCopy;
     }
 
+
+
     cycleFaceStickers(face, clockwise) {
         var stateCopy = structuredClone(this.state);
         var f = structuredClone(stateCopy[face]);
 
-        console.log(structuredClone(f));
         
         var fNew = Array.from({ length: this.size }, () => new Array(this.size));
 
@@ -164,7 +170,6 @@ export class Cube {
                     fNew[j][i] = f[i][j];
                 }
             }
-            console.log(structuredClone(fNew));
 
             for (let i = 0; i < this.size; i++) {
                 fNew[i].reverse();
@@ -172,7 +177,7 @@ export class Cube {
 
         } else {
             for (let i = 0; i < this.size; i++) {
-                fNew[i].reverse();
+                f[i].reverse();
             }
 
             for (let i = 0; i < this.size; i++) {
@@ -191,9 +196,7 @@ export class Cube {
     }
 
     copyState() {
-        // console.log(structuredClone(this.state));
         var copy = structuredClone(this.state);
-        // console.log(structuredClone(copy))
 
         return copy;
     }
