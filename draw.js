@@ -18,7 +18,7 @@ export function drawCube(state, colours) {
         rSticker.style.backgroundColor = colours[state[3][0][size-1-i]];
     }
 
-    for (let i = size-2; i < size; i++) {
+    for (let i = 1; i < size; i++) {
         var lSticker = document.getElementById(0 + '-' + (size-1+i));
         var rSticker = document.getElementById(3 + '-' + (size-1+i));
         lSticker.style.backgroundColor = colours[state[1][i][size-1]];
