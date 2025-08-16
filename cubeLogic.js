@@ -28,7 +28,7 @@ export class Cube {
         return state;
     }
 
-    rotateLayer(face, layers, clockwise) {
+    doOuterLayerMove(face, layers, clockwise) {
         
         this.cycleFaceStickers(face, clockwise);
 
@@ -41,6 +41,16 @@ export class Cube {
 
     doSliceMove(face, layer, clockwise) {
         this.cycleSideStickers(face, clockwise, layer);
+    }
+
+    doCubeRotation(face, clockwise) {
+        var opposite = [5, 3, 4, 1, 2, 0][face];
+        this.cycleFaceStickers(face, clockwise);
+        this.cycleFaceStickers(opposite, !clockwise);
+
+        for (let i = 0; i <= this.size-1; i++) {
+            this.cycleSideStickers(face, clockwise, i);
+        }
     }
 
     cycleSideStickers(face, clockwise, layer = 0) {
@@ -139,17 +149,21 @@ export class Cube {
             }
         } else if (face == 5) {
             if (clockwise) { // 1 -> 2 -> 3 -> 4
-                var temp = stateCopy[1][N-layer];
-                stateCopy[1][N-layer] = stateCopy[4][N-layer];
-                stateCopy[4][N-layer] = stateCopy[3][N-layer];
-                stateCopy[3][N-layer] = stateCopy[2][N-layer];
-                stateCopy[2][N-layer] = temp;
+                for (let i = 0; i < this.size; i++) {
+                    var temp = stateCopy[1][N-layer][i];
+                    stateCopy[1][N-layer][i] = stateCopy[4][N-layer][i];
+                    stateCopy[4][N-layer][i] = stateCopy[3][N-layer][i];
+                    stateCopy[3][N-layer][i] = stateCopy[2][N-layer][i];
+                    stateCopy[2][N-layer][i] = temp;
+                }
             } else { // 1 -> 4 -> 3 -> 2
-                var temp = stateCopy[1][N-layer];
-                stateCopy[1][N-layer] = stateCopy[2][N-layer];
-                stateCopy[2][N-layer] = stateCopy[3][N-layer];
-                stateCopy[3][N-layer] = stateCopy[4][N-layer];
-                stateCopy[4][N-layer] = temp;
+                for (let i = 0; i < this.size; i++) {
+                    var temp = stateCopy[1][N-layer][i];
+                    stateCopy[1][N-layer][i] = stateCopy[2][N-layer][i];
+                    stateCopy[2][N-layer][i] = stateCopy[3][N-layer][i];
+                    stateCopy[3][N-layer][i] = stateCopy[4][N-layer][i];
+                    stateCopy[4][N-layer][i] = temp;
+                }
             }
         }
         this.state = stateCopy;
