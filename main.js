@@ -7,29 +7,29 @@ function onKeyDown(e) {
     let c = e.code;
 
     if (c === "KeyF") { // U'
-        cube.rotateLayer(0, 0, false)
+        cube.doOuterLayerMove(0, 0, false)
     } else if (c === "KeyJ") { // U
-        cube.rotateLayer(0, 0, true)
+        cube.doOuterLayerMove(0, 0, true)
     } else if (c === "KeyE") { // L'
-        cube.rotateLayer(1, 0, false)
+        cube.doOuterLayerMove(1, 0, false)
     } else if (c === "KeyD") { // L
-        cube.rotateLayer(1, 0, true)
+        cube.doOuterLayerMove(1, 0, true)
     } else if (c == "KeyG") { // F'
-        cube.rotateLayer(2, 0, false)
+        cube.doOuterLayerMove(2, 0, false)
     } else if (c == "KeyH") { // F
-        cube.rotateLayer(2, 0, true)
+        cube.doOuterLayerMove(2, 0, true)
     } else if (c === "KeyK") { // R'
-        cube.rotateLayer(3, 0, false)
+        cube.doOuterLayerMove(3, 0, false)
     } else if (c === "KeyI") { // R
-        cube.rotateLayer(3, 0, true)
+        cube.doOuterLayerMove(3, 0, true)
     } else if (c === "KeyO") { // B'
-        cube.rotateLayer(4, 0, false)
+        cube.doOuterLayerMove(4, 0, false)
     } else if (c === "KeyW") { // B
-        cube.rotateLayer(4, 0, true)
-    } else if (c === "KeyS") { // D'
-        cube.rotateLayer(5, 0, false)
-    } else if (c === "KeyL") { // D
-        cube.rotateLayer(5, 0, true)
+        cube.doOuterLayerMove(4, 0, true)
+    } else if (c === "KeyL") { // D'
+        cube.doOuterLayerMove(5, 0, false)
+    } else if (c === "KeyS") { // D
+        cube.doOuterLayerMove(5, 0, true)
     } else if (c === "Period" || c === "KeyX") { // M'
         cube.doSliceMove(1, 1, false)
     } else if (c === "Digit5" || c === "Digit6") { // M
@@ -42,6 +42,38 @@ function onKeyDown(e) {
         cube.doSliceMove(2, 1, false)
     } else if (c === "Digit0" ) { // S
         cube.doSliceMove(2, 1, true)
+    } else if (c === "KeyC") { // u'
+        cube.doOuterLayerMove(0, 1, false)
+    } else if (c === "Comma") { // u
+        cube.doOuterLayerMove(0, 1, true)
+    } else if (c === "KeyR") { // l'
+        cube.doOuterLayerMove(1, 1, false)
+    } else if (c === "KeyV") { // l
+        cube.doOuterLayerMove(1, 1, true)
+    // } else if (c == "KeyG") { // f
+    //     cube.rotateLayer(2, 1, false)
+    // } else if (c == "KeyH") { // f
+    //     cube.rotateLayer(2, 1, true)
+    } else if (c === "KeyM") { // r'
+        cube.doOuterLayerMove(3, 1, false)
+    } else if (c === "KeyU") { // r
+        cube.doOuterLayerMove(3, 1, true)
+    // } else if (c === "KeyO") { // b'
+    //     cube.rotateLayer(4, 1, false)
+    // } else if (c === "KeyW") { // b
+    //     cube.rotateLayer(4, 1, true)
+    } else if (c === "KeyB" || c === "KeyN") { // x'
+        cube.doCubeRotation(3, false)
+    } else if (c === "KeyT" || c === "KeyY") { // x
+        cube.doCubeRotation(3, true)
+    } else if (c === "KeyA") { // y'
+        cube.doCubeRotation(0, false)
+    } else if (c === "Semicolon") { // y
+        cube.doCubeRotation(0, true)
+    } else if (c === "KeyQ") { // z'
+        cube.doCubeRotation(2, false)
+    } else if (c === "KeyP" ) { // z
+        cube.doCubeRotation(2, true)
     }
 
     drawCube(cube.state, Cube.colours);
