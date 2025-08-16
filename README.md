@@ -1,1 +1,1 @@
-[play](https://wiser2.github.io/cwbe)
+[cwbe](https://wiser2.github.io/cwbe)
