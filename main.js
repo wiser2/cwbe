@@ -3,10 +3,8 @@ import { Cube } from './cubeLogic.js';
 import { drawCube } from './draw.js';
 
 
-function onKeyDown(e) {
-    let c = e.code;
-
-    if (c === "KeyF") { // U'
+function doControls(c) {
+        if (c === "KeyF") { // U'
         cube.doOuterLayerMove(0, 0, false)
     } else if (c === "KeyJ") { // U
         cube.doOuterLayerMove(0, 0, true)
@@ -75,7 +73,14 @@ function onKeyDown(e) {
     } else if (c === "KeyP" ) { // z
         cube.doCubeRotation(2, true)
     }
+}
 
+function onKeyDown(e) {
+    let c = e.code;
+
+    // controls
+    doControls(c);
+    
     drawCube(cube.state, Cube.colours);
 }
 
