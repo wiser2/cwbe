@@ -133,8 +133,8 @@ export class Cube {
             if (clockwise) { // 0 -> 1 -> 5 -> 3
                 for (let i = 0; i < this.size; i++) {
                     var temp = stateCopy[0][layer][i];
-                    stateCopy[0][layer][i] = stateCopy[3][N-i][N-layer];
-                    stateCopy[3][N-i][N-layer] = stateCopy[5][N-layer][N-i];
+                    stateCopy[0][layer][i] = stateCopy[3][i][N-layer];
+                    stateCopy[3][i][N-layer] = stateCopy[5][N-layer][N-i];
                     stateCopy[5][N-layer][N-i] = stateCopy[1][N-i][layer];
                     stateCopy[1][N-i][layer] = temp;
                 }
@@ -143,8 +143,8 @@ export class Cube {
                     var temp = stateCopy[0][layer][i];
                     stateCopy[0][layer][i] = stateCopy[1][N-i][layer];
                     stateCopy[1][N-i][layer] = stateCopy[5][N-layer][N-i];
-                    stateCopy[5][N-layer][N-i] = stateCopy[3][N-i][N-layer];
-                    stateCopy[3][N-i][N-layer] = temp;
+                    stateCopy[5][N-layer][N-i] = stateCopy[3][i][N-layer];
+                    stateCopy[3][i][N-layer] = temp;
                 }
             }
         } else if (face == 5) {
@@ -168,8 +168,6 @@ export class Cube {
         }
         this.state = stateCopy;
     }
-
-
 
     cycleFaceStickers(face, clockwise) {
         var stateCopy = structuredClone(this.state);
@@ -213,5 +211,27 @@ export class Cube {
         var copy = structuredClone(this.state);
 
         return copy;
+    }
+
+    randomMoveScram(n) {
+        this.state = this.initSolvedState();
+        for (let i = 0; i < n; i++) {
+            var face = Math.floor(Math.random() * 6);
+            var clockwise = Math.floor(Math.random() * 2);
+            var layers = 0
+            this.doOuterLayerMove(face, layers, clockwise);
+        }
+    }
+
+    isSolved() {
+        for (let i = 0; i < 6; i++) {
+            var num = this.state[i][0][0];
+            for (let j = 0; j < this.size; j++) {
+                for (let k = 0; k < this.size; k++) {
+                    if (this.state[i][j][k] != num) return false;
+                }
+            }
+        }
+        return true;
     }
 }

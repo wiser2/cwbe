@@ -2,9 +2,12 @@ import { initCubeHtml } from './init.js';
 import { Cube } from './cubeLogic.js';
 import { drawCube } from './draw.js';
 
+var moves = 0;
+var movesText = document.getElementById("moves");
 
 function doControls(c) {
-        if (c === "KeyF") { // U'
+    if (!cube.isSolved()) moves += 1;
+    if (c === "KeyF") { // U'
         cube.doOuterLayerMove(0, 0, false)
     } else if (c === "KeyJ") { // U
         cube.doOuterLayerMove(0, 0, true)
@@ -72,6 +75,11 @@ function doControls(c) {
         cube.doCubeRotation(2, false)
     } else if (c === "KeyP" ) { // z
         cube.doCubeRotation(2, true)
+    } else if (c === "Space") {
+        cube.randomMoveScram(20);
+        moves = 0;
+    } else {
+        if (!cube.isSolved()) moves -= 1;
     }
 }
 
@@ -80,8 +88,9 @@ function onKeyDown(e) {
 
     // controls
     doControls(c);
-    
     drawCube(cube.state, Cube.colours);
+
+    movesText.innerHTML = moves;
 }
 
 
